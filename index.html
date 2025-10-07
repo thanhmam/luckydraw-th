@@ -8,24 +8,40 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>✨ LUCKY DRAW ✨</h1>
-        <p>Nhấn nút "Quay Số" để tìm ra người may mắn!</p>
+    <div class="main-container">
+        <div class="spin-wrapper">
+            <h1>✨ LUCKY DRAW ✨</h1>
+            <p id="current-prize-info">Sẵn sàng quay giải đầu tiên!</p>
 
-        <div class="display-panel">
-            <div id="result" class="result-number">000</div>
+            <div class="display-panel">
+                <div id="result" class="result-number">000</div>
+            </div>
+
+            <button id="spinButton">Bắt Đầu Quay Số!</button>
         </div>
 
-        <button id="spinButton">Quay Số!</button>
+        <div class="results-wrapper">
+            <h2>KẾT QUẢ ĐÃ QUAY</h2>
+            
+            <div class="prize-section" id="section-vouchers">
+                <h3>35 SỐ: Vouchers (Hanoi, Saigon, Nem nướng)</h3>
+                <div class="number-list" id="list-vouchers"></div>
+            </div>
 
-        <div class="prize-list">
-            <h2>Cơ Cấu Giải Thưởng</h2>
-            <ul>
-                <li><strong>35 SỐ:</strong> 15 Voucher Hanoi Corner, 10 Voucher Saigon Recipe, 10 Voucher Nem nuong.</li>
-                <li><strong>02 SỐ:</strong> 2 cặp voucher 2 đêm tại khách sạn ở Pattaya.</li>
-                <li><strong>01 SỐ:</strong> 1 cặp voucher vé máy bay quốc tế của Vietjet Air.</li>
-                <li><strong>02 SỐ:</strong> 2 cặp voucher vé máy bay quốc tế của Vietnam Airlines.</li>
-            </ul>
+            <div class="prize-section" id="section-pattaya">
+                <h3>02 SỐ: Voucher 2 đêm tại khách sạn Pattaya</h3>
+                <div class="number-list" id="list-pattaya"></div>
+            </div>
+            
+            <div class="prize-section" id="section-vietjet">
+                <h3>01 SỐ: Vé máy bay quốc tế Vietjet Air</h3>
+                <div class="number-list" id="list-vietjet"></div>
+            </div>
+
+            <div class="prize-section" id="section-vietnam-airlines">
+                <h3>02 SỐ: Vé máy bay quốc tế Vietnam Airlines</h3>
+                <div class="number-list" id="list-vietnam-airlines"></div>
+            </div>
         </div>
     </div>
 
