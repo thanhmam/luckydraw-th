@@ -1,0 +1,73 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    background-color: #34495e;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #f1c40f;
+    margin-bottom: 20px;
+}
+
+.display-panel {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: #2c3e50;
+    border-radius: 10px;
+}
+
+.result-number {
+    font-size: 80px;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 10px;
+    text-shadow: 0 0 15px #f1c40f;
+}
+
+#spinButton {
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+#spinButton:hover {
+    background-color: #c0392b;
+}
+
+#spinButton:active {
+    transform: scale(0.98);
+}
+
+.prize-list {
+    margin-top: 40px;
+    text-align: left;
+    color: #bdc3c7;
+}
+
+.prize-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.prize-list li {
+    margin-bottom: 10px;
+}
