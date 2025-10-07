@@ -4,48 +4,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const spinButton = document.getElementById('spinButton');
     const prizeInfoDiv = document.getElementById('current-prize-info');
 
-    // --- CẤU TRÚC GIẢI THƯỞNG ---
+    // --- CẤU TRÚC GIẢI THƯỞNG (SONG NGỮ) ---
     const prizes = [
         {
-            name: "Vouchers (Hanoi, Saigon, Nem nướng)",
+            name: "Vouchers",
             count: 35,
             listElementId: "list-vouchers"
         },
         {
-            name: "Voucher 2 đêm tại khách sạn Pattaya",
+            name: "Voucher khách sạn Pattaya / Hotel Voucher in Pattaya",
             count: 2,
             listElementId: "list-pattaya"
         },
         {
-            name: "Vé máy bay quốc tế Vietjet Air",
+            name: "Vé máy bay Vietjet Air / Flight ticket by Vietjet Air",
             count: 1,
             listElementId: "list-vietjet"
         },
         {
-            name: "Vé máy bay quốc tế Vietnam Airlines",
+            name: "Vé máy bay Vietnam Airlines / Flight ticket by Vietnam Airlines",
             count: 2,
             listElementId: "list-vietnam-airlines"
         }
     ];
 
     // --- BIẾN TRẠNG THÁI ---
-    let spunNumbers = new Set(); // Dùng Set để lưu số đã quay, kiểm tra trùng lặp rất nhanh
+    let spunNumbers = new Set();
     let currentPrizeIndex = 0;
     let numbersDrawnForCurrentPrize = 0;
 
     // --- HÀM CẬP NHẬT GIAO DIỆN ---
     function updateUI() {
         if (currentPrizeIndex >= prizes.length) {
-            prizeInfoDiv.textContent = "Tất cả các giải đã được quay!";
-            spinButton.textContent = "HOÀN THÀNH!";
+            prizeInfoDiv.textContent = "Tất cả các giải đã được quay! / All prizes have been drawn!";
+            spinButton.textContent = "HOÀN THÀNH / COMPLETED";
             spinButton.disabled = true;
             return;
         }
 
         const currentPrize = prizes[currentPrizeIndex];
-        prizeInfoDiv.innerHTML = `Đang quay <b>${currentPrize.name}</b><br>
-                                  Lượt quay: ${numbersDrawnForCurrentPrize + 1} / ${currentPrize.count}`;
-        spinButton.textContent = `Quay số cho giải ${currentPrize.name}`;
+        prizeInfoDiv.innerHTML = `Đang quay giải / Now spinning for: <b>${currentPrize.name}</b><br>
+                                  Lượt / Spin: ${numbersDrawnForCurrentPrize + 1} / ${currentPrize.count}`;
     }
 
     // --- HÀM TẠO HIỆU ỨNG QUAY SỐ ---
@@ -58,9 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             clearInterval(animationInterval);
             resultDiv.textContent = finalNumber.toString().padStart(3, '0');
-            addNumberToResults(finalNumber); // Thêm số vào danh sách kết quả
-            spinButton.disabled = false; // Bật lại nút sau khi có kết quả
-        }, 2500); // Thời gian hiệu ứng là 2.5 giây
+            addNumberToResults(finalNumber);
+            spinButton.disabled = false;
+        }, 2500);
     }
 
     // --- HÀM THÊM SỐ VÀO DANH SÁCH KẾT QUẢ ---
@@ -73,35 +72,31 @@ document.addEventListener('DOMContentLoaded', () => {
         numberChip.textContent = number.toString().padStart(3, '0');
         listElement.appendChild(numberChip);
 
-        // Cập nhật trạng thái
         numbersDrawnForCurrentPrize++;
         if (numbersDrawnForCurrentPrize >= currentPrize.count) {
             currentPrizeIndex++;
             numbersDrawnForCurrentPrize = 0;
         }
 
-        updateUI(); // Cập nhật lại giao diện cho lượt quay tiếp theo
+        updateUI();
     }
     
     // --- SỰ KIỆN CLICK NÚT QUAY SỐ ---
     spinButton.addEventListener('click', () => {
-        if (currentPrizeIndex >= prizes.length) {
-            return; // Đã quay hết giải, không làm gì cả
-        }
+        if (currentPrizeIndex >= prizes.length) return;
 
         spinButton.disabled = true;
 
-        // Sinh số ngẫu nhiên và đảm bảo không bị trùng
         let winningNumber;
         do {
             winningNumber = Math.floor(Math.random() * 999) + 1;
         } while (spunNumbers.has(winningNumber));
 
-        spunNumbers.add(winningNumber); // Thêm số mới vào danh sách đã quay
+        spunNumbers.add(winningNumber);
 
         animateNumber(winningNumber);
     });
 
     // --- KHỞI TẠO GIAO DIỆN LẦN ĐẦU ---
-    updateUI();
+    prizeInfoDiv.textContent = "Nhấn nút để bắt đầu / Press the button to start";
 });
