@@ -73,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let animationInterval = setInterval(() => {
             const randomNumber = Math.floor(Math.random() * 999) + 1;
             resultDiv.textContent = randomNumber.toString().padStart(3, '0');
-        }, 50); // Cứ 50ms đổi số một lần
+        }, 30); // Cứ 50ms đổi số một lần
 
         // --- DỪNG HIỆU ỨNG VÀ HIỂN THỊ KẾT QUẢ SAU 0.8 GIÂY ---
         setTimeout(() => {
@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentPrizeIndex < prizes.length) {
                 spinButton.disabled = false;
             }
-        }, 800); // <-- THỜI GIAN QUAY SỐ LÀ 800ms (0.8 giây)
+        }, 500); // <-- THỜI GIAN QUAY SỐ LÀ 800ms (0.8 giây)
     });
 
     // --- KHỞI TẠO GIAO DIỆN LẦN ĐẦU ---
