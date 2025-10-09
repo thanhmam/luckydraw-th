@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let animationInterval = setInterval(() => {
             const randomNumber = Math.floor(Math.random() * 999) + 1;
             resultDiv.textContent = randomNumber.toString().padStart(3, '0');
-        }, 50);
+        }, 30);
 
         // Stop the animation and show the result after 0.8 seconds
         setTimeout(() => {
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentPrizeIndex < prizes.length) {
                 spinButton.disabled = false;
             }
-        }, 800);
+        }, 500);
     });
 
     // INITIAL UI SETUP
