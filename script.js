@@ -47,21 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
                                   Lượt / Spin: ${numbersDrawnForCurrentPrize + 1} / ${currentPrize.count}`;
     }
 
-    // --- HÀM TẠO HIỆU ỨNG QUAY SỐ ---
-    function animateNumber(finalNumber) {
-        let animationInterval = setInterval(() => {
-            const randomNumber = Math.floor(Math.random() * 999) + 1;
-            resultDiv.textContent = randomNumber.toString().padStart(3, '0');
-        }, 50);
-
-        setTimeout(() => {
-            clearInterval(animationInterval);
-            resultDiv.textContent = finalNumber.toString().padStart(3, '0');
-            addNumberToResults(finalNumber);
-            spinButton.disabled = false;
-        }, 2500);
-    }
-
     // --- HÀM THÊM SỐ VÀO DANH SÁCH KẾT QUẢ ---
     function addNumberToResults(number) {
         const currentPrize = prizes[currentPrizeIndex];
@@ -85,16 +70,19 @@ document.addEventListener('DOMContentLoaded', () => {
     spinButton.addEventListener('click', () => {
         if (currentPrizeIndex >= prizes.length) return;
 
-        spinButton.disabled = true;
-
+        // Sinh số ngẫu nhiên và đảm bảo không bị trùng
         let winningNumber;
         do {
             winningNumber = Math.floor(Math.random() * 999) + 1;
         } while (spunNumbers.has(winningNumber));
 
-        spunNumbers.add(winningNumber);
+        spunNumbers.add(winningNumber); // Thêm số mới vào danh sách đã quay
 
-        animateNumber(winningNumber);
+        // HIỂN THỊ KẾT QUẢ NGAY LẬP TỨC
+        resultDiv.textContent = winningNumber.toString().padStart(3, '0');
+        
+        // Thêm số vào danh sách kết quả và cập nhật giao diện
+        addNumberToResults(winningNumber);
     });
 
     // --- KHỞI TẠO GIAO DIỆN LẦN ĐẦU ---
