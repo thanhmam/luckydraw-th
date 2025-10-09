@@ -41,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
             spinButton.disabled = true;
             return;
         }
-
         const currentPrize = prizes[currentPrizeIndex];
         prizeInfoDiv.innerHTML = `Đang quay giải / Now spinning for: <b>${currentPrize.name}</b><br>
                                   Lượt / Spin: ${numbersDrawnForCurrentPrize + 1} / ${currentPrize.count}`;
@@ -51,38 +50,52 @@ document.addEventListener('DOMContentLoaded', () => {
     function addNumberToResults(number) {
         const currentPrize = prizes[currentPrizeIndex];
         const listElement = document.getElementById(currentPrize.listElementId);
-
         const numberChip = document.createElement('span');
         numberChip.className = 'number-chip';
         numberChip.textContent = number.toString().padStart(3, '0');
         listElement.appendChild(numberChip);
 
         numbersDrawnForCurrentPrize++;
-        if (numbersDrawnForCurrentPrize >= currentPrize.count) {
+        if (numbersDrawnForCurrentPrize >= prizes.count) {
             currentPrizeIndex++;
             numbersDrawnForCurrentPrize = 0;
         }
-
         updateUI();
     }
-    
+
     // --- SỰ KIỆN CLICK NÚT QUAY SỐ ---
     spinButton.addEventListener('click', () => {
-        if (currentPrizeIndex >= prizes.length) return;
+        if (spinButton.disabled) return;
 
-        // Sinh số ngẫu nhiên và đảm bảo không bị trùng
-        let winningNumber;
-        do {
-            winningNumber = Math.floor(Math.random() * 999) + 1;
-        } while (spunNumbers.has(winningNumber));
+        spinButton.disabled = true;
 
-        spunNumbers.add(winningNumber); // Thêm số mới vào danh sách đã quay
+        // --- TẠO HIỆU ỨNG QUAY SỐ RẤT NGẮN ---
+        let animationInterval = setInterval(() => {
+            const randomNumber = Math.floor(Math.random() * 999) + 1;
+            resultDiv.textContent = randomNumber.toString().padStart(3, '0');
+        }, 50); // Cứ 50ms đổi số một lần
 
-        // HIỂN THỊ KẾT QUẢ NGAY LẬP TỨC
-        resultDiv.textContent = winningNumber.toString().padStart(3, '0');
-        
-        // Thêm số vào danh sách kết quả và cập nhật giao diện
-        addNumberToResults(winningNumber);
+        // --- DỪNG HIỆU ỨNG VÀ HIỂN THỊ KẾT QUẢ SAU 0.8 GIÂY ---
+        setTimeout(() => {
+            clearInterval(animationInterval); // Dừng việc tạo số ngẫu nhiên
+
+            // Sinh số trúng thưởng cuối cùng
+            let winningNumber;
+            do {
+                winningNumber = Math.floor(Math.random() * 999) + 1;
+            } while (spunNumbers.has(winningNumber));
+            
+            spunNumbers.add(winningNumber);
+
+            // Hiển thị kết quả và thêm vào danh sách
+            resultDiv.textContent = winningNumber.toString().padStart(3, '0');
+            addNumberToResults(winningNumber);
+            
+            // Bật lại nút bấm nếu chưa quay hết giải
+            if (currentPrizeIndex < prizes.length) {
+                spinButton.disabled = false;
+            }
+        }, 800); // <-- THỜI GIAN QUAY SỐ LÀ 800ms (0.8 giây)
     });
 
     // --- KHỞI TẠO GIAO DIỆN LẦN ĐẦU ---
